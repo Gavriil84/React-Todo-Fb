@@ -19,7 +19,11 @@ function App() {
 
   const addTodo = (event) => {
     // this will fire off when we click the button
-    event.preventDefault();
+    event.preventDefault(); //will stop the refresh
+    db.collection('todos').add({
+      todo: input
+    })
+
     setTodos([...todos, input]);
     setInput('');
   }
