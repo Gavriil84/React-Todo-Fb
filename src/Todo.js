@@ -22,6 +22,16 @@ const style = {
 function Todo(props) {
     
     const [open, setOpen] = useState(false);
+    const [input, setInput] = useState('');
+    const upDateTodo = () => {
+        
+        // update todo with the new input text
+        db.collection('todos').doc(props.todo.id).set({
+            todo: input
+        }, { merge: true });
+
+        setOpen(false)
+    }
 
     return (
         <>
@@ -33,7 +43,8 @@ function Todo(props) {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">I'm a modal</Typography>
-                    <Button onClick={e => setOpen(false)}>Update Todo</Button>
+                    <input placeholder={props.todo.todo} value={input} onChange={e => setInput(e.target.value)}/>
+                    <Button onClick={upDateTodo}>Update Todo</Button>
                 </Box>
             </Modal>
             <List className="todo__list">
